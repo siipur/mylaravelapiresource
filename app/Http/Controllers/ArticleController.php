@@ -52,7 +52,10 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        // get single articles
+        $article = Article::findOrFail($id);
+        // return single article as a resouces
+        return new ArticleResource($article);
     }
 
     /**
