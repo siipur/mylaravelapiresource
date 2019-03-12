@@ -41,6 +41,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        //jika method put maka fungsi update data, namun jika tidak fungsi create data 
         $article = $request->isMethod('put') ? Article::findOrFail($request->article_id) : new Article;
         
         $article->id = $request->input('article_id');
@@ -97,6 +98,11 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // get single articles
+        $article = Article::findOrFail($id);
+        // return single article as a resouces
+        if($article->delete()){
+            return new ArticleResource($article);
+        }
     }
 }
